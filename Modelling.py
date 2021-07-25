@@ -412,29 +412,28 @@ def start_algs(data, price_col, lag_index, lags, dep_rates, params):
     
     ## Create parameters for multiprocessing
     start = time.time()
-    n_1 = 50
-    n_2 = 25
+    n = 1000
     
     ## Start multiprocessing for each algorithm with optimal dataset
     
     X, y = create_model_data(data, price_col, lag_index, lags[0], dep_rates[0])
-    glm_future = multiprocess_algorithm_no_params(bootstrap_linear_regression, n_1, X, y)
+    glm_future = multiprocess_algorithm_no_params(bootstrap_linear_regression, n, X, y)
     glm = ray.get(glm_future)
     print(f'GLM is readable! Time elapsed: {(time.time()-start)/60} min')
     
     X, y = create_model_data(data, price_col, lag_index, lags[2], dep_rates[2])
-    ada_future = multiprocess_algorithm(bootstrap_adaboost, n_1, X, y, params[2])
+    ada_future = multiprocess_algorithm(bootstrap_adaboost, n, X, y, params[2])
     ada = ray.get(ada_future)
     print(f'ADA is readable! Time elapsed: {(time.time()-start)/60} min')
     
     X, y = create_model_data(data, price_col, lag_index, lags[1], dep_rates[1])
-    rfr_future = multiprocess_algorithm(bootstrap_forest, n_1, X, y, params[1])
+    rfr_future = multiprocess_algorithm(bootstrap_forest, n, X, y, params[1])
     rfr = ray.get(rfr_future)
     print(f'RFR is readable! Time elapsed: {(time.time()-start)/60} min')
     
     
     X, y = create_model_data(data, price_col, lag_index, lags[3], dep_rates[3])
-    grad_future = multiprocess_algorithm(bootstrap_gradientboost, n_2, X, y, params[3])
+    grad_future = multiprocess_algorithm(bootstrap_gradientboost, n, X, y, params[3])
     grad = ray.get(grad_future)
     print(f'GRAD is readable! Time elapsed: {(time.time()-start)/60} min')
     
