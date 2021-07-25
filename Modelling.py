@@ -464,7 +464,7 @@ res_subset = data_res.loc[(data_res['Year'] > 1982) & (data_res['Year'] <= 2020)
 data_gen = pd.read_excel('dataframes.xlsx', 'li_gen')
 data_gen.drop(['Unnamed: 0'], axis = 1, inplace = True)
 data_gen = data_gen.sort_values(by = 'Year')
-gen_subset = data_gen[(data_gen['Year'] > 1982) & (data_gen['Year'] <= 2020)].reset_index().drop(columns = ['index', 'Utility_Projects_USD2020/kWh'])
+gen_subset = data_gen[(data_gen['Year'] > 1982) & (data_gen['Year'] <= 2020)].reset_index().drop(columns = ['index'])
 
 
 # # Full run-down

@@ -816,7 +816,6 @@ fuel_cells = fuel_cells.drop(['USD2015/kWh_dom','USD2015/kW_dom', 'portable_ship
 
 # In[92]:
 
-
 ## Merge fuel cell datasets
 data_fc = fuel_cells.merge(
     us_prices.loc[us_prices['Description'] == 'Average Retail Price of Electricity, Residential', 
@@ -829,6 +828,7 @@ data_fc = data_fc.merge(
     how = 'outer',
     on = 'Year')
 
+data_fc.drop(['MWh_dom', 'shipments_MW'], axis = 1, inplace = True)
 
 # In[88]:
 
@@ -876,8 +876,7 @@ data_res = data_res.merge(
 data_res['MWh_combined'] = np.mean(data_res[['MWh_elec', 'MWh']], axis = 1)
 
 data_res.drop(['Consumer_Cells_2019USD/kWh', 'USD2015/kWh_elec', 'USD2015/kW_elec',
-            'USD2015/kWh', 'USD2015/kWh_elec_2', 'MWh_elec_2'], axis = 1, inplace = True)
-
+            'USD2015/kWh', 'USD2015/kWh_elec_2', 'MWh_elec_2', 'MWh_elec', 'MW_elec', 'MWh'], axis = 1, inplace = True)
 
 # In[90]:
 
@@ -900,7 +899,7 @@ data_gen = data_gen.merge(
     how = 'outer',
     on = 'Year')
 
-data_gen.drop(['Utility_Projects_2019USD/kWh', 'USD2015/kWh', 'installed_capacity_projects'], 
+data_gen.drop(['Utility_Projects_2019USD/kWh', 'USD2015/kWh', 'installed_capacity_projects', 'Utility_Projects_USD2020/kWh'], 
                axis = 1, inplace = True)
 
 
